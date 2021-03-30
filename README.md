@@ -6,7 +6,11 @@ The extension fetches the open graph and twitter tags to replicate the behaviour
 
 ![Sample Screenshot](./screenshot.png)
 
-## Installation
+## Download
+
+Check releases, or [click here](https://chrome.google.com/webstore/detail/social-media-link-preview/dlmoajpiphhokgbbfaiiekhlgpjnjfei/) to download the latest version.
+
+## Development
 
 Clone the repository and run
 
