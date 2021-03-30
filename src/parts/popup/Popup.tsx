@@ -20,61 +20,6 @@ type Data = Record<'og' | 'twitter', MetaData>;
 
 type Status = 'loading' | 'error' | 'ready';
 
-const Container = styled.div`
-    width: 500px;
-    margin: 0;
-    color: #292f33;
-    font-size: 14px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.3em;
-
-    section::nth-child(odd) {
-        background-color: #f0f0f0;
-    }
-
-    section:nth-child(even) {
-        background-color: #eee;
-    }
-`;
-
-const Section = styled.section`
-    width: 100%;
-    margin: 0;
-    padding: 3em 1em;
-
-    & > h2 {
-        margin-left: 0.4em;
-    }
-`;
-
-const Item = styled.div`
-    margin-top: 22px;
-
-    & > p {
-        font-size: 1.3em;
-    }
-`;
-
-const GlobalStyle = createGlobalStyle`
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body::-webkit-scrollbar {
-        width: 0.6em;
-    }
-    
-    body::-webkit-scrollbar-track {
-        background-color: #d4d4d4;
-    }
-    
-    body::-webkit-scrollbar-thumb {
-        background-color: #616161;
-    }
-`;
-
 const Popup = () => {
     const [state, setState] = useState<Data>({
         og: {},
@@ -84,6 +29,7 @@ const Popup = () => {
     const [status, setStatus] = useState<Status>('loading');
 
     useEffect(() => {
+        // Send message to the content script when the popup is opened
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             if (!tabs[0] || !tabs[0].id) {
                 return;
@@ -96,12 +42,13 @@ const Popup = () => {
                 { action: 'get-meta-values' },
                 (response) => {
                     const lastError = chrome.runtime.lastError;
-
+                    // An error will be shown in the content script has not been injected
                     if (lastError) {
                         setStatus('error');
                         return;
                     }
 
+                    // Set default values
                     const resultData: Data = {
                         og: {
                             title: 'Untitled',
@@ -120,7 +67,6 @@ const Popup = () => {
                     if (response.data) {
                         setStatus('ready');
                         const ogResponseData = response.data.og;
-                        console.log(response.data);
                         resultData.og.title = response.data.common.title;
 
                         for (let ogType in ogResponseData) {
@@ -142,6 +88,7 @@ const Popup = () => {
                             }
                         }
 
+                        // Twitter will fallback to open graph if twitter specific cards are not found
                         resultData.twitter = resultData.og;
 
                         const twitterResponseData = response.data.twitter;
@@ -174,6 +121,7 @@ const Popup = () => {
         });
     }, []);
 
+    // Reload the current window
     const onReload = () => {
         chrome.tabs.query(
             { active: true, currentWindow: true },
@@ -183,6 +131,13 @@ const Popup = () => {
                 }
             }
         );
+    };
+
+    const openGitHub = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        chrome.tabs.create({
+            active: true,
+            url: e.currentTarget.getAttribute('href') as string,
+        });
     };
 
     return (
@@ -227,6 +182,30 @@ const Popup = () => {
                                     <FbCardLarge {...state.og} />
                                 </Item>
                             </Section>
+                            <Section>
+                                <p className="footer-message">
+                                    Show some{' '}
+                                    <svg
+                                        className="heart"
+                                        viewBox="0 0 32 29.6"
+                                        width={22}
+                                        height={22}
+                                    >
+                                        <path
+                                            d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
+                                            fill="red"
+                                        />
+                                    </svg>{' '}
+                                    on{' '}
+                                    <a
+                                        href="https://github.com/akzhy/social-media-link-preview"
+                                        onClick={openGitHub}
+                                    >
+                                        GitHub
+                                    </a>
+                                </p>
+                            </Section>
                         </React.Fragment>
                     );
                 }
@@ -234,5 +213,68 @@ const Popup = () => {
         </Container>
     );
 };
+
+const Container = styled.div`
+    width: 500px;
+    margin: 0;
+    color: #292f33;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.3em;
+
+    section::nth-child(odd) {
+        background-color: #f0f0f0;
+    }
+
+    section:nth-child(even) {
+        background-color: #eee;
+    }
+`;
+
+const Section = styled.section`
+    width: 100%;
+    margin: 0;
+    padding: 3em 1em;
+
+    & > h2 {
+        margin-left: 0.4em;
+    }
+
+    .footer-message {
+        text-align: center;
+        svg {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+`;
+
+const Item = styled.div`
+    margin-top: 22px;
+
+    & > p {
+        font-size: 1.3em;
+    }
+`;
+
+const GlobalStyle = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0.6em;
+    }
+    
+    body::-webkit-scrollbar-track {
+        background-color: #d4d4d4;
+    }
+    
+    body::-webkit-scrollbar-thumb {
+        background-color: #616161;
+    }
+`;
 
 export default Popup;
