@@ -4,6 +4,8 @@ Social Media Link Preview is a browser extension that shows a sample preview of 
 
 The extension fetches the open graph and twitter tags to replicate the behaviour.
 
+![Sample Screenshot](./screenshot.png)
+
 ## Installation
 
 Clone the repository and run
