@@ -12,19 +12,18 @@ Check releases, or [click here](https://chrome.google.com/webstore/detail/social
 
 ## Development
 
-Clone the repository and run
+Clone the repository.
+For development version run
 
 ```
 yarn start
 ```
 
-for development version run
+For production build.
 
 ```
 yarn build
 ```
-
-for production build.
 
 ### Adding extension to chromium based browser
 
