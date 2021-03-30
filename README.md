@@ -7,3 +7,7 @@ The extension fetches the open graph and twitter tags to replicate the behaviour
 ## Contributing
 
 Any kind of contributions are welcome. Makes sure to add a relevant emoji before your commit message, refer https://github.com/cooperka/emoji-commit-messages
+
+---
+
+Made with [Chrome Extension React Boilerplate](ttps://github.com/lxieyang/chrome-extension-boilerplate-react)
