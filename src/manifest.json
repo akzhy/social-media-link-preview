@@ -1,5 +1,6 @@
 {
     "manifest_version": 3,
+    "version": "1.0.0",
     "name": "Social Media Link Preview",
     "description": "Shows a sample preview of OG and twitter card content of the current page",
     "short_name": "Shows twitter card / og content",
