@@ -1,11 +1,11 @@
 {
-    "name": "chrome-extension-boilerplate-react",
+    "name": "social-media-link-preview",
     "version": "4.0.1",
-    "description": "A chrome extension boilerplate built with React 17 and Webpack 5",
+    "description": "A chrome extension that shows a webpage's link preview on social media",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+        "url": "https://github.com/akzhy/social-media-link-preview.git"
     },
     "scripts": {
         "build": "node utils/build.js",
