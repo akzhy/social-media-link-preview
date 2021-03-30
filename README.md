@@ -12,7 +12,7 @@ Clone the repository and run
 yarn start
 ```
 
-for development version and
+for development version run
 
 ```
 yarn build
