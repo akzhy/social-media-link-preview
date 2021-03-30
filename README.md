@@ -33,4 +33,4 @@ Any kind of contributions are welcome. Makes sure to add a relevant emoji before
 
 ---
 
-Made with [Chrome Extension React Boilerplate](ttps://github.com/lxieyang/chrome-extension-boilerplate-react)
+Made with [Chrome Extension React Boilerplate](https://github.com/lxieyang/chrome-extension-boilerplate-react)
