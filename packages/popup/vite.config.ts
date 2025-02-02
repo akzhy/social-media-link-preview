@@ -10,7 +10,4 @@ export default defineConfig({
       "@src": "/src",
     },
   },
-  server: {
-    port: 13467,
-  },
 });
