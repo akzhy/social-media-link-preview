@@ -10,7 +10,7 @@
 <style>
   .error-container {
     width: 100%;
-    height: calc(100vh - 2rem);
+    height: calc(100vh - 6rem);
     display: flex;
     align-items: center;
     justify-content: center;
