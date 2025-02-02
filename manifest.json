@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "version": "2.0.0",
+  "name": "Social Media Link Preview",
+  "description": "Shows a sample preview of OG and twitter card content of the current page",
+  "short_name": "Shows twitter card / og content",
+  "background": { "service_worker": "packages/scripts/dist/background.js" },
+  "action": {
+    "default_popup": "packages/popup/dist/index.html",
+    "default_icon": "assets/img/icon-34.png"
+  },
+  "permissions": ["activeTab"],
+  "icons": {
+    "128": "assets/img/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["packages/scripts/dist/content.js"],
+      "all_frames": false,
+      "match_about_blank": true
+    }
+  ],
+  "devtools_page": "devtools.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/img/icon-128.png", "assets/img/icon-34.png"],
+      "matches": []
+    }
+  ]
+}
